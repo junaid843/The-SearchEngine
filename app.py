@@ -23,77 +23,142 @@ st.markdown(
     """
     <style>
     /* ---- Global ---- */
-    body { font-family: 'Segoe UI', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; }
 
     /* ---- Hero banner ---- */
     .hero {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        border-radius: 16px;
-        padding: 2.5rem 2rem 2rem;
+        background: linear-gradient(135deg, #0d0d1a 0%, #0f0f2e 40%, #1a0533 70%, #0d1b4b 100%);
+        border-radius: 20px;
+        padding: 3rem 2.5rem 2.5rem;
         margin-bottom: 2rem;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        box-shadow: 0 12px 48px rgba(99,60,180,0.25), 0 2px 8px rgba(0,0,0,0.4);
+        border: 1px solid rgba(139,92,246,0.2);
+        position: relative;
+        overflow: hidden;
     }
-    .hero h1 { color: #e2e8f0; font-size: 2.8rem; margin: 0; }
-    .hero p  { color: #94a3b8; font-size: 1.1rem; margin-top: 0.5rem; }
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -60px; left: 50%;
+        transform: translateX(-50%);
+        width: 400px; height: 200px;
+        background: radial-gradient(ellipse, rgba(139,92,246,0.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .hero h1 {
+        color: #f1f5f9;
+        font-size: 2.8rem;
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        text-shadow: 0 0 40px rgba(167,139,250,0.4);
+    }
+    .hero p  {
+        color: #a78bfa;
+        font-size: 1.05rem;
+        margin-top: 0.6rem;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+    }
 
     /* ---- Search bar ---- */
     .search-container {
-        background: #1e293b;
-        border-radius: 12px;
+        background: linear-gradient(135deg, #13111f 0%, #1a1433 100%);
+        border-radius: 14px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid #334155;
+        border: 1px solid rgba(139,92,246,0.25);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     /* ---- Result cards ---- */
     .result-card {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 12px;
-        padding: 1.5rem;
+        background: linear-gradient(135deg, #13111f 0%, #1c1535 100%);
+        border: 1px solid rgba(99,102,241,0.2);
+        border-radius: 14px;
+        padding: 1.6rem;
         margin-bottom: 1.2rem;
-        transition: border-color 0.2s;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .result-card:hover { border-color: #6366f1; }
+    .result-card:hover {
+        border-color: rgba(167,139,250,0.6);
+        box-shadow: 0 8px 32px rgba(99,60,180,0.2);
+        transform: translateY(-1px);
+    }
     .result-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.9rem;
     }
-    .doc-name  { color: #818cf8; font-weight: 600; font-size: 1rem; }
-    .score-badge {
-        background: linear-gradient(90deg, #6366f1, #8b5cf6);
-        color: white;
-        padding: 0.25rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
+    .doc-name  {
+        color: #c4b5fd;
         font-weight: 600;
+        font-size: 1rem;
+        letter-spacing: 0.01em;
     }
-    .result-text { color: #cbd5e1; line-height: 1.7; font-size: 0.95rem; }
-    .chunk-meta  { color: #475569; font-size: 0.8rem; margin-top: 0.6rem; }
+    .score-badge {
+        background: linear-gradient(90deg, #7c3aed, #a855f7);
+        color: #f5f3ff;
+        padding: 0.3rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        box-shadow: 0 2px 8px rgba(124,58,237,0.4);
+    }
+    .result-text {
+        color: #d1d5db;
+        line-height: 1.75;
+        font-size: 0.95rem;
+    }
+    .chunk-meta  {
+        color: #6b7280;
+        font-size: 0.78rem;
+        margin-top: 0.7rem;
+        letter-spacing: 0.02em;
+    }
 
     /* ── Sidebar stat boxes ─ */
     .stat-box {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 10px;
-        padding: 1rem;
+        background: linear-gradient(135deg, #13111f 0%, #1c1535 100%);
+        border: 1px solid rgba(139,92,246,0.25);
+        border-radius: 12px;
+        padding: 1.1rem;
         text-align: center;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.9rem;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     }
-    .stat-label { color: #94a3b8; font-size: 0.8rem; }
-    .stat-value { color: #e2e8f0; font-size: 1.6rem; font-weight: 700; }
+    .stat-label {
+        color: #9ca3af;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+    }
+    .stat-value {
+        color: #e9d5ff;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-top: 0.2rem;
+        text-shadow: 0 0 20px rgba(167,139,250,0.35);
+    }
 
     /* ── Upload section ─ */
     .upload-section {
-        background: #1e293b;
-        border: 2px dashed #334155;
-        border-radius: 12px;
+        background: linear-gradient(135deg, #13111f 0%, #1c1535 100%);
+        border: 2px dashed rgba(139,92,246,0.35);
+        border-radius: 14px;
         padding: 1.5rem;
         text-align: center;
         margin-bottom: 1.2rem;
+        transition: border-color 0.2s ease;
+    }
+    .upload-section:hover {
+        border-color: rgba(167,139,250,0.6);
     }
     </style>
     """,
@@ -142,7 +207,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(
         """
-        <small style='color:#475569'>
+        <small style='color:#6b7280'>
         ℹ️ Uses SentenceTransformers for embeddings (no OpenAI key needed).<br><br>
         Pinecone free tier: 1 index, 100 k vectors.
         </small>
@@ -338,11 +403,11 @@ with tab_search:
 
                     # Colour the score badge
                     if score >= 0.80:
-                        badge_color = "background: linear-gradient(90deg,#10b981,#059669)"
+                        badge_color = "background: linear-gradient(90deg,#059669,#10b981); box-shadow:0 2px 8px rgba(16,185,129,0.4)"
                     elif score >= 0.60:
-                        badge_color = "background: linear-gradient(90deg,#f59e0b,#d97706)"
+                        badge_color = "background: linear-gradient(90deg,#d97706,#f59e0b); box-shadow:0 2px 8px rgba(245,158,11,0.4)"
                     else:
-                        badge_color = "background: linear-gradient(90deg,#6366f1,#8b5cf6)"
+                        badge_color = "background: linear-gradient(90deg,#7c3aed,#a855f7); box-shadow:0 2px 8px rgba(124,58,237,0.4)"
 
                     st.markdown(
                         f"""
